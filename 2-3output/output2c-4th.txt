@@ -1,0 +1,5 @@
+sub-thread runtime: 1.644215
+sub-thread runtime: 3.832500
+sub-thread runtime: 5.410541
+sub-thread runtime: 6.883687
+main-thread runtime: 6.883835

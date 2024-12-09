@@ -1,0 +1,5 @@
+child 0 runtime: 1.162088
+child 1 runtime: 2.832672
+child 2 runtime: 4.535045
+child 3 runtime: 6.301303
+all runtime: 6.302395
