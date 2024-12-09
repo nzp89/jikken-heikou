@@ -1,56 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <sys/time.h>
-#include <time.h>
-
-#define N 100000
-#define ALLTRIAL 10000
-
-double GetRandom(double min, double max)
-{
-    return min + ((double)rand() / RAND_MAX) * (max - min);
-}
+#include <sys/types.h>
+#include <unistd.h>
+#include <err.h>
+#include <errno.h>
 
 int main()
 {
+    // initial
+    int N = 100000;
+    // time
     struct timeval t0, t1;
-    int N_left, N_right;
-    int *N_state = (int *)malloc(N * sizeof(int));
-    for (int i = 0; i < N; i++)
-    {
-        N_state[i] = 0; // all left(=0)
-    }
-    double rand_i, rate;
-    N_left = N;
-    N_right = 0;
-    srand((unsigned int)time(NULL));
     gettimeofday(&t0, NULL);
-
-    for (int t = 0; t < ALLTRIAL; t++)
+    for (int i = 1; i < N; i++)
     {
-        printf("trial: %d\n", t);
-        for (int i = 0; i < N; i++)
+        int sum_yakusu = 0;
+        for (int j = 1; j < i; j++)
         {
-            rand_i = GetRandom(0, 1);
-            rate = N_left / (double)N;
-            if (rand_i <= rate)
+            if (i % j == 0)
             {
-                N_state[i] = 1;
-                N_left -= 1;
-                N_right += 1;
+                sum_yakusu += j;
             }
-            else
-            {
-                N_state[i] = 0;
-                N_left += 1;
-                N_right -= 1;
-            }
+        }
+        if (sum_yakusu == i)
+        {
+            printf("perfect number: %d\n", i);
         }
     }
     gettimeofday(&t1, NULL);
     timersub(&t1, &t0, &t1);
-    printf("run time: %ld.%06ld\n", t1.tv_sec, t1.tv_usec);
-
+    printf("runtime: %ld.%06ld\n", t1.tv_sec, t1.tv_usec);
     return 0;
 }
