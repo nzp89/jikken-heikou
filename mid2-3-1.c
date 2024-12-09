@@ -9,6 +9,7 @@
 
 int N = 100000;
 struct timeval t0;
+FILE *fp;
 
 void *thread(void *args)
 {
@@ -30,7 +31,7 @@ void *thread(void *args)
     }
     gettimeofday(&t1, NULL);
     timersub(&t1, &t0, &t1);
-    printf("sub-thread runtime: %ld.%06ld\n", t1.tv_sec, t1.tv_usec);
+    fprintf(fp, "sub-thread runtime: %ld.%06ld\n", t1.tv_sec, t1.tv_usec);
     return NULL;
 }
 
@@ -38,6 +39,7 @@ int main()
 {
     // initial
     gettimeofday(&t0, NULL);
+    fp = fopen("output.txt", "w");
     // create thread
     pthread_t th;
     pthread_create(&th, NULL, thread, (void *)NULL);
@@ -46,6 +48,6 @@ int main()
     struct timeval t2;
     gettimeofday(&t2, NULL);
     timersub(&t2, &t0, &t2);
-    printf("main-thread runtime: %ld.%06ld\n", t2.tv_sec, t2.tv_usec);
+    fprintf(fp, "main-thread runtime: %ld.%06ld\n", t2.tv_sec, t2.tv_usec);
     return 0;
 }
