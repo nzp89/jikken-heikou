@@ -1,0 +1,6 @@
+nanako@nanako-VMware-Virtual-Platform:~/code$ ./mid2-1
+perfect number: 6
+perfect number: 28
+perfect number: 496
+perfect number: 8128
+runtime: 21.796717
